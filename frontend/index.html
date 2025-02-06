@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kubernetes App</title>
+</head>
+<body>
+    <h1>API-Daten</h1>
+    <ul id="data"></ul>
+    <input id="name" type="text">
+    <button onclick="addData()">Hinzufügen</button>
+    
+    <script>
+        async function loadData() {
+            let res = await fetch("/api/data");
+            let items = await res.json();
+            document.getElementById("data").innerHTML = items.map(i => `<li>${i.name}</li>`).join("");
+        }
+
+        async function addData() {
+            let name = document.getElementById("name").value;
+            await fetch("/api/data", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name }) });
+            loadData();
+        }
+
+        loadData();
+    </script>
+</body>
+</html>
