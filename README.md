@@ -3,7 +3,8 @@
 ### For deployment with minikube:
 
 ```
-minikube start```
+minikube start
+```
 
 ```
 kubectl create configmap nginx-html --from-file=frontend/index.html
